@@ -12,19 +12,27 @@
             </p>
         </div>
         <div class="timer-wrapper">
-            <svg class="timer-ring" width="200" height="200">
-                <circle class="ring-background" cx="100" cy="100" r="90" />
-                <circle class="ring-progress" cx="100" cy="100" r="90" :style="{ strokeDashoffset: circleDashOffset }"
-                    stroke-dasharray="565.48" />
+            <svg class="timer-ring" :width="timerRingSize" :height="timerRingSize">
+                <circle :cx="timerRingHalfSize" :cy="timerRingHalfSize" r="140" class="circle" />
+
+                <g class="ticks">
+                    <rect v-for="n in totalTicks" :key="n" :class="{ 'active-tick': n <= activeTicks }"
+                        :transform="'rotate(' + ((n - 1) * (360 / totalTicks)) + ' ' + timerRingHalfSize + ' ' + timerRingHalfSize + ')'"
+                        x="145" y="20" width="9" height="26" rx="6" ry="6" />
+                </g>
             </svg>
             <div class="timer-text">
-                <h2 class="text-5xl">{{ minutes }}:{{ seconds < 10 ? '0' + seconds : seconds }}</h2>
+                <h2 class="text-6xl">{{ minutes < 10 ? '0' + minutes : minutes }}:{{ seconds < 10 ? '0' + seconds :
+                    seconds }}</h2>
             </div>
         </div>
-        <div class="mt-4 space-x-4">
-            <Button @click="toggleTimer" size="lg" class="text-lg">{{ buttonLabel }}</Button>
-            <Button v-if="!isRunning" @click="stopAndResetSession" variant="destructive" size="icon">
-                <ReloadIcon class="w-4 h-4" />
+        <div class="mt-4">
+            <Button v-show="!isRunning" @click="stopAndResetSession" variant="secondary" size="icon" class="mr-2">
+                <ReloadIcon class="w-5 h-5" />
+            </Button>
+            <Button @click="toggleTimer" size="xl" variant="gradient" class="text-xl">{{ buttonLabel }}</Button>
+            <Button v-show="!isRunning" @click="stopAndResetSession" variant="secondary" size="icon" class="ml-2">
+                <ReloadIcon class="w-5 h-5" />
             </Button>
         </div>
     </div>
@@ -43,7 +51,7 @@ const props = defineProps({
 });
 
 const sessions = {
-    pomodoro: { name: 'pomodoro', duration: 1 * 60, onComplete: () => numberOfPomosDone.value++ },
+    pomodoro: { name: 'pomodoro', duration: 5 * 60, onComplete: () => numberOfPomosDone.value++ },
     shortBreak: { name: 'shortBreak', duration: 5 * 60, onComplete: () => numberOfShortBreaksDone.value++ },
     longBreak: { name: 'longBreak', duration: 15 * 60, onComplete: () => numberOfLongBreaksDone.value++ }
 };
@@ -62,17 +70,19 @@ const pomosBeforeLongBreak = 4;
 const timeLeft = ref(currentSession.value.duration);
 const isRunning = ref(false);
 
-const buttonLabel = computed(() => isRunning.value ? 'Pause' : 'Resume');
+const buttonLabel = computed(() => isRunning.value ? 'PAUSE' : 'RESUME');
 
 const minutes = computed(() => Math.floor(timeLeft.value / 60));
 const seconds = computed(() => timeLeft.value % 60);
 
-// Calculer le pourcentage du temps restant pour la barre circulaire
-const circleRadius = 90;
-const circleCircumference = 2 * Math.PI * circleRadius;
-
-const circleProgress = computed(() => (timeLeft.value / currentSession.value.duration) * 100);
-const circleDashOffset = computed(() => circleCircumference - (circleProgress.value / 100) * circleCircumference);
+// Calculer le nombre de ticks actifs (colorés) en fonction du temps restant
+const totalTicks = ref(24);
+const activeTicks = computed(() => {
+    const percentageComplete = (currentSession.value.duration - timeLeft.value) / currentSession.value.duration;
+    return Math.max(1, Math.floor(percentageComplete * totalTicks.value));
+});
+const timerRingSize = 300;
+const timerRingHalfSize = timerRingSize / 2;
 
 // Identifiant de l'intervalle pour le contrôle du timer
 let intervalId = null;
@@ -163,32 +173,28 @@ onUnmounted(() => {
 
 .timer-wrapper {
     position: relative;
-    width: 200px;
-    height: 200px;
 }
 
-.timer-ring {
-    transform: rotate(-90deg);
-}
-
-.ring-background {
+.circle {
+    /* fill: #f5f5f5; */
     fill: none;
-    stroke: #e0e0e0;
-    stroke-width: 12;
+    stroke: #dbdbdb;
+    stroke-width: 2;
 }
 
-.ring-progress {
-    fill: none;
-    stroke: #b22e2e;
-    stroke-width: 12;
-    stroke-linecap: round;
-    transition: stroke-dashoffset 1s linear;
+.ticks {
+    fill: #dbdbdb;
+}
+
+.active-tick {
+    fill: #b22e2e;
 }
 
 .timer-text {
     position: absolute;
-    top: 50%;
+    top: 49%;
     left: 50%;
     transform: translate(-50%, -50%);
+    color: rgb(65, 65, 65);
 }
 </style>

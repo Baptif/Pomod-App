@@ -16,13 +16,16 @@ export const buttonVariants = cva(
           "bg-secondary text-secondary-foreground hover:bg-secondary/80",
         ghost: "hover:bg-accent hover:text-accent-foreground",
         link: "text-primary underline-offset-4 hover:underline",
+        gradient:
+          "text-white bg-gradient-to-r from-[#dc143c] to-[#ff4500] hover:from-[#dc143c] hover:to-[#ff4500]",
       },
       size: {
         default: "h-10 px-4 py-2",
         xs: "h-7 rounded px-2",
         sm: "h-9 rounded-md px-3",
-        lg: "h-11 rounded-md px-8",
-        icon: "h-10 w-10",
+        lg: "h-11 rounded-lg px-10",
+        xl: "h-12 w-40 rounded-lg",
+        icon: "h-10 w-10 rounded-full",
       },
     },
     defaultVariants: {
