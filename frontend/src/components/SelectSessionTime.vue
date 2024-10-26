@@ -1,5 +1,5 @@
 <template>
-    <div class="flex flex-col items-center justify-center w-full">
+    <div class="flex flex-col items-center justify-center frame">
         <h1 class="text-4xl font-bold mb-4">Focus time</h1>
 
         <h2 class="text-3xl font-semibold my-4">{{ sessionTimeReadable }}</h2>
@@ -62,4 +62,11 @@ function startSession() {
 }
 </script>
 
-<style scoped></style>
+<style scoped>
+.frame {
+    border: 1px solid lightgray;
+    box-shadow: 2px 2px 2px lightgray;
+    border-radius: 10px;
+    padding: 1rem 2rem;
+}
+</style>

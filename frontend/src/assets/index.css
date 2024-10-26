@@ -34,6 +34,13 @@
     --ring: 222.2 84% 4.9%;
  
     --radius: 0.5rem;
+
+    --background-g : #1E1E2F;
+    --primary-g : #FF4C4C;
+    --text-p-g : #E0E0E0 ;
+    --text-s-g : #A0A0A0  ;
+    --border-g : #3D3D5C  ;
+    --hover-g : #D13C3C  ;
   }
  
   .dark {

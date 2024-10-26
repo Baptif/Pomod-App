@@ -7,7 +7,7 @@ import Statistics from '@/views/StatisticsView.vue'
 const routes = [
     { path: '/', component: Dashboard },
     { path: '/settings', component: Settings },
-    { path: '/about', component: About },
+    { path: '/info', component: About },
     { path: '/statistics', component: Statistics }
 ]
 

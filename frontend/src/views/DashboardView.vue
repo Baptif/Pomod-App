@@ -1,5 +1,5 @@
 <template>
-    <div class="flex flex-col items-center justify-center min-h-screen">
+    <div>
 
         <SelectSessionTime v-if="!sessionIsStarted" @start-session="handleStartSession" />
 

@@ -1,5 +1,5 @@
 <template>
-    <div class="flex flex-col items-center justify-center min-h-screen">
+    <div>
         <h1 class="text-4xl font-bold mb-4">About / Info</h1>
         <p>This is a placeholder for the settings view.</p>
     </div>

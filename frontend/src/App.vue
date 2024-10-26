@@ -1,15 +1,10 @@
 <template>
-  <Sidebar />
-  <div class="main-content">
+  <LayoutMain>
     <RouterView />
-  </div>
+  </LayoutMain>
 </template>
 
 <script setup>
-import Sidebar from './components/Sidebar.vue';
+import LayoutMain from './components/LayoutMain.vue'
 
 </script>
-
-<style scoped>
-
-</style>
