@@ -1,11 +1,15 @@
 <template>
     <div class="min-h-screen bg-gray-50 dark:bg-gray-800">
-        <Sidebar :is-open="isOpen" @toggle="toggleSidebar"/>
-        <main
-            id="main"
-            class="transition-all duration-300" 
-            :class="[isOpen ? 'ml-64' : 'ml-16']"
-        >
+        <Sidebar ref="sidebarRef" />
+        <main :class="[
+            // Large screens - full sidebar margin
+            'lg:ml-64',
+            // Medium screens - icon only sidebar margin
+            'md:ml-16',
+            // Small screens - no sidebar margin
+            'ml-0'
+        ]">
+            <Navbar @toggle-sidebar="toggleSidebar" :class="['lg:hidden','md:hidden']" />
             <div class="p-6">
                 <slot></slot>
             </div>
@@ -16,10 +20,11 @@
 <script setup>
 import { ref } from 'vue'
 import Sidebar from './Sidebar.vue'
+import Navbar from './Navbar.vue'
 
-const isOpen = ref(true)
+const sidebarRef = ref(null)
 
 const toggleSidebar = () => {
-    isOpen.value = !isOpen.value
+    sidebarRef.value?.toggleSidebar()
 }
 </script>

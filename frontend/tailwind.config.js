@@ -1,4 +1,5 @@
 const animate = require("tailwindcss-animate")
+const { BREAKPOINTS } = require('./src/constants/breakpoints')
 
 /** @type {import('tailwindcss').Config} */
 module.exports = {
@@ -20,6 +21,13 @@ module.exports = {
       screens: {
         "2xl": "1400px",
       },
+    },
+    screens: {
+      'sm': `${BREAKPOINTS.sm}px`,
+      'md': `${BREAKPOINTS.md}px`,
+      'lg': `${BREAKPOINTS.lg}px`,
+      'xl': `${BREAKPOINTS.xl}px`,
+      '2xl': `${BREAKPOINTS.xxl}px`,
     },
     extend: {
       colors: {

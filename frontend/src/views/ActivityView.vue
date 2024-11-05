@@ -1,6 +1,6 @@
 <template>
     <div>
-        <h1 class="text-4xl font-bold mb-4">Statitics</h1>
+        <h1 class="text-4xl font-bold mb-4">Your Activity</h1>
         <p>This is a placeholder for the settings view.</p>
     </div>
 </template>

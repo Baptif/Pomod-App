@@ -1,30 +1,22 @@
 <template>
     <nav class="flex flex-col gap-2 px-2 py-4">
         <SidebarItem 
-            v-for="item in menuItems" 
+            v-for="item in ROUTES" 
             :key="item.path" 
             v-bind="item" 
-            :is-open="isOpen"
+            :icon-only="iconOnly"
         />
     </nav>
 </template>
 
 <script setup>
-import { ref } from 'vue'
 import SidebarItem from './SidebarItem.vue'
-import { BarChartIcon, GearIcon, HomeIcon, InfoCircledIcon } from '@radix-icons/vue'
+import { ROUTES } from '@/constants/routes'
 
 defineProps({
-    isOpen: {
+    iconOnly: {
         type: Boolean,
-        default: true
+        default: false
     }
 })
-
-const menuItems = ref([
-    { title: 'Accueil', path: '/', icon: HomeIcon },
-    { title: 'Statistiques', path: '/statistics', icon: BarChartIcon },
-    { title: 'Informations', path: '/info', icon: InfoCircledIcon },
-    { title: 'Paramètres', path: '/settings', icon: GearIcon }
-])
 </script>
